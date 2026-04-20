@@ -2,9 +2,9 @@
   "domain": "nexgen_iot",
   "name": "NexGen IoT",
   "version": "1.0.0",
-  "documentation": "https://nexgen-iot.co.za/home-assistant",
-  "issue_tracker": "https://github.com/nexgen-iot/nexgen-iot-homeassistant/issues",
-  "codeowners": ["@nexgen-iot"],
+  "documentation": "https://nexgen-iot.co.za/home-assistant.html",
+  "issue_tracker": "https://github.com/mwjsmith7/nexgen-iot-ha-bridge/issues",
+  "codeowners": ["@mwjsmith7"],
   "requirements": [],
   "config_flow": true,
   "iot_class": "cloud_polling"
