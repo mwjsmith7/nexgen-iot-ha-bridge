@@ -50,4 +50,4 @@ Copy `custom_components/nexgen_iot/` into your HA `config/custom_components/` di
 ## Support
 
 - Documentation: [nexgen-iot.co.za/home-assistant](https://nexgen-iot.co.za/home-assistant)
-- Issues: [GitHub Issues](https://github.com/nexgen-iot/nexgen-iot-ha-integration/issues)
+- Issues: [GitHub Issues](https://github.com/mwjsmith7/nexgen-iot-ha-bridge/issues)
