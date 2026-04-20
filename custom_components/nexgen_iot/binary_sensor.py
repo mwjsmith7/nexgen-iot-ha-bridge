@@ -19,10 +19,8 @@ async def async_setup_entry(
     entities: list[BinarySensorEntity] = []
 
     for device_id, device in coordinator.data.items():
-        if device.get("doorSensorEnabled") or device.get("hasDoorSensor"):
+        if device.get("doorStatusEnabled"):
             entities.append(NexGenDoorSensor(coordinator, device_id))
-        if device.get("motionEnabled") or device.get("hasMotion"):
-            entities.append(NexGenMotionSensor(coordinator, device_id))
 
     async_add_entities(entities)
 
@@ -42,22 +40,4 @@ class NexGenDoorSensor(NexGenEntity, BinarySensorEntity):
 
     @property
     def is_on(self) -> bool:
-        return bool(self._device_data.get("doorOpen", False))
-
-
-class NexGenMotionSensor(NexGenEntity, BinarySensorEntity):
-    """Motion / PIR sensor."""
-
-    _attr_device_class = BinarySensorDeviceClass.MOTION
-
-    def __init__(self, coordinator: NexGenCoordinator, device_id: str) -> None:
-        super().__init__(coordinator, device_id)
-        self._attr_unique_id = f"{device_id}_motion"
-
-    @property
-    def name(self) -> str:
-        return f"{self._device_data.get('name', 'NexGen')} Motion"
-
-    @property
-    def is_on(self) -> bool:
-        return bool(self._device_data.get("motionDetected", False))
+        return (self._device_data.get("doorState") or "").upper() == "OPEN"

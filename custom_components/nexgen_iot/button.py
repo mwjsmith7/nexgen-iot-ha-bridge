@@ -10,6 +10,13 @@ from .coordinator import NexGenCoordinator
 from .entity import NexGenEntity
 
 
+def _relay_count(device: dict) -> int:
+    explicit = device.get("relayCount") or device.get("relay_count")
+    if explicit is not None:
+        return int(explicit)
+    return 2 if device.get("relay2Enabled") else 1
+
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
@@ -19,25 +26,26 @@ async def async_setup_entry(
     entities: list[NexGenTriggerButton] = []
 
     for device_id, device in coordinator.data.items():
-        if device.get("triggerEnabled") or device.get("hasTrigger"):
-            entities.append(NexGenTriggerButton(coordinator, device_id))
+        for index in range(1, _relay_count(device) + 1):
+            entities.append(NexGenTriggerButton(coordinator, device_id, index))
 
     async_add_entities(entities)
 
 
 class NexGenTriggerButton(NexGenEntity, ButtonEntity):
-    """Momentary trigger button (e.g. door bell / gate pulse)."""
+    """Momentary pulse on one relay channel (3-second pulse)."""
 
-    def __init__(self, coordinator: NexGenCoordinator, device_id: str) -> None:
+    def __init__(self, coordinator: NexGenCoordinator, device_id: str, relay_index: int) -> None:
         super().__init__(coordinator, device_id)
-        self._attr_unique_id = f"{device_id}_trigger"
+        self._relay_index = relay_index
+        self._attr_unique_id = f"{device_id}_relay_{relay_index}_trigger"
 
     @property
     def name(self) -> str:
-        return f"{self._device_data.get('name', 'NexGen')} Trigger"
+        return f"{self._device_data.get('name', 'NexGen')} Trigger {self._relay_index}"
 
     async def async_press(self) -> None:
         await self.coordinator.client.send_command(
             self._device_id,
-            {"trigger": True},
+            {"command": "relay", "relay": self._relay_index, "state": "pulse", "pulse_s": 3},
         )

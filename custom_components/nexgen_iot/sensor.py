@@ -24,9 +24,8 @@ async def async_setup_entry(
     entities: list[SensorEntity] = []
 
     for device_id, device in coordinator.data.items():
-        if device.get("tempEnabled") or device.get("hasTemp"):
+        if device.get("dhtEnabled"):
             entities.append(NexGenTemperatureSensor(coordinator, device_id))
-        if device.get("humidityEnabled") or device.get("hasHumidity"):
             entities.append(NexGenHumiditySensor(coordinator, device_id))
         if device.get("aqEnabled") or device.get("airQualityEnabled"):
             entities.append(NexGenAQISensor(coordinator, device_id))
@@ -50,7 +49,7 @@ class NexGenTemperatureSensor(NexGenEntity, SensorEntity):
 
     @property
     def native_value(self) -> float | None:
-        val = self._device_data.get("temperature")
+        val = self._device_data.get("temp")
         return float(val) if val is not None else None
 
 
