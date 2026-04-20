@@ -1,7 +1,7 @@
 {
   "domain": "nexgen_iot",
   "name": "NexGen IoT",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "documentation": "https://nexgen-iot.co.za/home-assistant.html",
   "issue_tracker": "https://github.com/mwjsmith7/nexgen-iot-ha-bridge/issues",
   "codeowners": ["@mwjsmith7"],
