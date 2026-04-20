@@ -1,0 +1,11 @@
+{
+  "domain": "nexgen_iot",
+  "name": "NexGen IoT",
+  "version": "1.0.0",
+  "documentation": "https://nexgen-iot.co.za/home-assistant",
+  "issue_tracker": "https://github.com/nexgen-iot/nexgen-iot-homeassistant/issues",
+  "codeowners": ["@nexgen-iot"],
+  "requirements": [],
+  "config_flow": true,
+  "iot_class": "cloud_polling"
+}

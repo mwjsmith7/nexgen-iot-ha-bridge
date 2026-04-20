@@ -1,0 +1,25 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to NexGen IoT",
+        "description": "Enter your NexGen IoT API URL (leave default unless self-hosting).",
+        "data": {
+          "api_url": "API URL"
+        }
+      },
+      "link": {
+        "title": "Link your account",
+        "description": "Enter the code **{link_code}** at [{link_url}]({link_url}) to authorise Home Assistant, then click **Submit**."
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot reach the NexGen IoT API. Check the URL and your internet connection.",
+      "not_yet_approved": "Code not yet approved. Approve it at the portal, then try again.",
+      "unknown": "Unexpected error. Please try again."
+    },
+    "abort": {
+      "already_configured": "NexGen IoT is already configured."
+    }
+  }
+}
