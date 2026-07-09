@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+from urllib.parse import urlsplit, urlunsplit
+
 import aiohttp
 
 
@@ -78,6 +81,16 @@ class NexGenApiClient:
 
     async def send_command(self, device_id: str, payload: dict) -> dict:
         return await self._post(f"/devices/{device_id}/command", {"payload": payload})
+
+    async def websocket_connect(self) -> aiohttp.ClientWebSocketResponse:
+        """Open and authenticate a live event connection."""
+        session = await self._session_get()
+        parts = urlsplit(self._api_url)
+        scheme = "wss" if parts.scheme == "https" else "ws"
+        ws_url = urlunsplit((scheme, parts.netloc, f"{parts.path.rstrip('/')}/ws", "", ""))
+        websocket = await session.ws_connect(ws_url, heartbeat=30)
+        await websocket.send_json({"type": "auth", "token": self._token})
+        return websocket
 
     # ── Helpers ────────────────────────────────────────────────────────────
 
