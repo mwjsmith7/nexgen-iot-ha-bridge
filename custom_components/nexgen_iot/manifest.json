@@ -1,11 +1,11 @@
 {
   "domain": "nexgen_iot",
   "name": "NexGen IoT",
-  "version": "1.1.1",
-  "documentation": "https://nexgen-iot.co.za/home-assistant.html",
-  "issue_tracker": "https://github.com/mwjsmith7/nexgen-iot-ha-bridge/issues",
   "codeowners": ["@mwjsmith7"],
-  "requirements": [],
   "config_flow": true,
-  "iot_class": "cloud_push"
+  "documentation": "https://nexgen-iot.co.za/home-assistant.html",
+  "iot_class": "cloud_push",
+  "issue_tracker": "https://github.com/mwjsmith7/nexgen-iot-ha-bridge/issues",
+  "requirements": [],
+  "version": "1.1.1"
 }
